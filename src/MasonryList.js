@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, InteractionManager } from "react-native";
+import { FlatList as RNFlatList, InteractionManager } from "react-native";
 import PropTypes from "prop-types";
 
 import { resolveImage, resolveLocal } from "./lib/model";
@@ -15,6 +15,9 @@ import {
 	getImageUri,
 	insertIntoColumn
 } from "./utils";
+import Animated from "react-native-reanimated";
+
+const FlatList = Animated.createAnimatedComponent(RNFlatList);
 
 export default class MasonryList extends React.PureComponent {
 	_calculatedData = [];
@@ -93,36 +96,36 @@ export default class MasonryList extends React.PureComponent {
 			nextProps.layoutDimensions.width !== this.props.layoutDimensions.width &&
 			nextProps.layoutDimensions.height !== this.props.layoutDimensions.height &&
 			!this.props.containerWidth) {
-				this.unsortedIndex = 0;
-				this.renderIndex = 0;
-				this.columnHeightTotals = [];
-				this.columnCounting = 1;
-				this.columnHighestHeight = null;
-				this.resolveImages(
-					nextProps.itemSource,
-					nextProps.images,
-					nextProps.layoutDimensions,
-					nextProps.columns,
-					nextProps.sorted
-				);
+			this.unsortedIndex = 0;
+			this.renderIndex = 0;
+			this.columnHeightTotals = [];
+			this.columnCounting = 1;
+			this.columnHighestHeight = null;
+			this.resolveImages(
+				nextProps.itemSource,
+				nextProps.images,
+				nextProps.layoutDimensions,
+				nextProps.columns,
+				nextProps.sorted
+			);
 		}
 		else if (nextProps.orientation !== this.props.orientation ||
 			nextProps.columns !== this.props.columns ||
 			nextProps.spacing !== this.props.spacing ||
 			nextProps.sorted !== this.props.sorted ||
 			nextProps.containerWidth !== this.props.containerWidth) {
-				this.unsortedIndex = 0;
-				this.renderIndex = 0;
-				this.columnHeightTotals = [];
-				this.columnCounting = 1;
-				this.columnHighestHeight = null;
-				this.resolveImages(
-					nextProps.itemSource,
-					this._calculatedData,
-					nextProps.layoutDimensions,
-					nextProps.columns,
-					nextProps.sorted
-				);
+			this.unsortedIndex = 0;
+			this.renderIndex = 0;
+			this.columnHeightTotals = [];
+			this.columnCounting = 1;
+			this.columnHighestHeight = null;
+			this.resolveImages(
+				nextProps.itemSource,
+				this._calculatedData,
+				nextProps.layoutDimensions,
+				nextProps.columns,
+				nextProps.sorted
+			);
 		}
 		// else if (nextProps.images !== this.props.images) {
 		// 	this.unsortedIndex = 0;
@@ -154,11 +157,11 @@ export default class MasonryList extends React.PureComponent {
 
 			// pull refresh reset datasource
 			if (nextProps.images.length < this.props.images.length) {
-					this.unsortedIndex = 0;
-					this.renderIndex = 0;
-					this.columnHeightTotals = [];
-					this.columnCounting = 1;
-					this.columnHighestHeight = null;
+				this.unsortedIndex = 0;
+				this.renderIndex = 0;
+				this.columnHeightTotals = [];
+				this.columnCounting = 1;
+				this.columnHighestHeight = null;
 				// this.renderIndex = 0;
 				this.resolveImages(
 					nextProps.itemSource,

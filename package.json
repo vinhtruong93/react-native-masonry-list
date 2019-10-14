@@ -46,7 +46,8 @@
     "README.md"
   ],
   "dependencies": {
-    "prop-types": "^15.6.2"
+    "prop-types": "^15.6.2",
+    "react-native-reanimated": "^1.2.0"
   },
   "peerDependencies": {
     "react": "*",
