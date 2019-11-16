@@ -141,7 +141,7 @@ export default class MasonryList extends React.PureComponent {
 					);
 				}
 				// pull refresh reset datasource
-				if (nextProps.images.length < this.props.images.length) {
+				if (nextProps.images.length <= this.props.images.length) {
 					this.unsortedIndex = 0;
 					this.renderIndex = 0;
 					this.columnHeightTotals = [];
